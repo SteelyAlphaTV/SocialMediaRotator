@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Steely's Social Media Rotator</title>
+    </head>
+    <body>
+	
+        <img id="image" src="1.png">							<!-- Set the "src" value to the path of the first image you want displayed. -->
+
+        <script type = "text/javascript">
+		
+            var image = document.getElementById("image");
+            var i = 0;
+			
+            var images = ["1.png", "2.png", "3.png", "4.png"]	// Array of images you want to rotate through.
+																// Change these to the filepaths of your images.
+
+			// Function to rotate through the images
+            function rotateImages() {
+			
+				fadeInImage(); 									// Calls a function to fade the image in.
+			
+                if (++i >= images.length) {
+                    i = 0;
+				}
+
+                image.src = images[i];
+				
+				setTimeout(fadeOutImage, 18000); 				//Calls function to fade image out after 18 seconds. 
+																//Change 18000 to the time you want in miliseconds.
+													
+            } // Ends rotateImages()
+			
+			// Function to fade image in
+			function fadeInImage() {
+				
+				var j = 0;
+				var fadeInterval = setInterval(function() {
+				
+					if (j < 1) {
+						j = j + 0.01							// Increases image opacity by .01 each iteration.
+						image.style.opacity = j;
+					} else {
+						clearInterval(fadeInterval);
+					}
+				
+				}, 10);											// Repeats above function every 10ms until the opacity is at 1.
+			
+			} // Ends fadeInImage()
+			
+			// Function to fade image out
+			function fadeOutImage() {
+				
+				var j = 1;
+				var fadeInterval = setInterval(function() {
+				
+					if (j > 0) {
+						j = j - 0.01							// Decreases image opacity by .01 each iteration.
+						image.style.opacity = j;
+					} else {
+						clearInterval(fadeInterval);
+					}
+				
+				}, 10);											// Repeats above function every 10ms until the opacity is at 0.
+			
+			} // Ends fadeOutImage
+
+			rotateImages(); 									// Calls function for the first image.
+            setInterval(rotateImages, 20000);					// Repeats function every 20 seconds (20000ms).
+																// Update the 20000 to change the amount of time between image swaps. 
+																// Make sure to update the value (default 18000) in rotateImages() to fade out the image properly.
+					
+        </script>
+		
+    </body>
+</html>
